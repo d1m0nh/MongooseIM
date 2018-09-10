@@ -144,6 +144,7 @@ assert_push_notification(Notification, Service, EnableOpts, SenderJID) ->
                     ?assertMatch(#{<<"click_action">> := Activity}, Alert)
             end;
         <<"true">> ->
+            ct:pal("~p~n", [Data]),
             ?assertMatch(#{<<"last-message-body">> := ExpectedBody}, Data),
             ?assertMatch(#{<<"last-message-sender">> := SenderJID}, Data),
             ?assertMatch(#{<<"message-count">> := 1}, Data)
