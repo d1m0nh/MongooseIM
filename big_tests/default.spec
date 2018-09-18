@@ -56,7 +56,7 @@
 %% {suites, "tests", private_SUITE}.
 %% {suites, "tests", pubsub_SUITE}.
 %% {suites, "tests", push_SUITE}.
-{groups, "tests", push_integration_SUITE, [inbox_msg_notifications], {cases, [inbox_msg_unread_count]}}.
+{groups, "tests", push_integration_SUITE, [inbox_msg_notifications], {cases, [inbox_msg_unread_count_apns]}}.
 %% {suites, "tests", push_pubsub_SUITE}.
 %% {suites, "tests", rest_SUITE}.
 %% {suites, "tests", rest_client_SUITE}.
