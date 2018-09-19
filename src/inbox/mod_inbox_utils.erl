@@ -29,6 +29,7 @@
          get_option_remove_on_kicked/1,
          reset_marker_to_bin/1]).
 
+-export([maybe_set_client_xmlns/2]).
 
 -spec reset_unread_count(User :: jid:jid(),
                          Remote :: jid:jid(),
@@ -135,3 +136,10 @@ reset_marker_to_bin(displayed) -> <<"displayed">>;
 reset_marker_to_bin(acknowledged) -> <<"acknowledged">>;
 reset_marker_to_bin(received) -> <<"received">>;
 reset_marker_to_bin(Unknown) -> throw({unknown_marker, Unknown}).
+
+
+-spec maybe_set_client_xmlns(boolean(), exml:element()) -> exml:element().
+maybe_set_client_xmlns(true, Packet) ->
+  xml:replace_tag_attr(<<"xmlns">>, <<"jabber:client">>, Packet);
+maybe_set_client_xmlns(false, Packet) ->
+  Packet.
