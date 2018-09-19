@@ -7,7 +7,7 @@
 %%% Created : 30. Jan 2018 13:22
 %%%-------------------------------------------------------------------
 -module(mod_inbox_utils).
--include("mongoose_ns.hrl").
+-include("mongoose.hrl").
 -include("mod_inbox.hrl").
 -include("jlib.hrl").
 
@@ -138,8 +138,10 @@ reset_marker_to_bin(received) -> <<"received">>;
 reset_marker_to_bin(Unknown) -> throw({unknown_marker, Unknown}).
 
 -spec maybe_add_default_ns(exml:element()) -> exml:element().
-maybe_add_default_ns(#xmlel{name = Name, attrs = Attrs} = El)
-  when Name =:= <<"message">>  ->
+maybe_add_default_ns(#xmlel{name = Name, attrs = Attrs} = El) ->
+  ?DEBUG("INBOX maybe_add_default_ns", [Name]),
+  ?DEBUG("INBOX maybe_add_default_ns attrs", [Attrs]),
+  %when Name =:= <<"message">>  ->
   case xml:get_attr(<<"xmlns">>, Attrs) of
     false ->
       El#xmlel{attrs = [{<<"xmlns">>, ?NS_CLIENT} | Attrs]};
