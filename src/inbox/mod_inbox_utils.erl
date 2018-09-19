@@ -138,7 +138,7 @@ reset_marker_to_bin(received) -> <<"received">>;
 reset_marker_to_bin(Unknown) -> throw({unknown_marker, Unknown}).
 
 -spec maybe_add_default_ns(exml:element()) -> exml:element().
-maybe_add_default_ns(#xmlel{name = Name, attrs = Attrs} = El) ->
+maybe_add_default_ns(El = #xmlel{name = Name, attrs = Attrs}) ->
   ?DEBUG("INBOX maybe_add_default_ns", [Name]),
   ?DEBUG("INBOX maybe_add_default_ns attrs", [Attrs]),
   %when Name =:= <<"message">>  ->
