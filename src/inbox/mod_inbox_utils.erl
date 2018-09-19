@@ -150,6 +150,7 @@ maybe_add_default_ns(#xmlel{name = Name, attrs = Attrs} = El) ->
   end;
 
 maybe_add_default_ns(El) ->
+  ?DEBUG("INBOX maybe_add_default_ns EL", [El]),
   El.
 
 %maybe_set_client_xmlns(Attr, Value, XE = #xmlel{attrs = Attrs}) ->
