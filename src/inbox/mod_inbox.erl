@@ -215,7 +215,7 @@ build_result_iq(CountBin) ->
 
 -spec build_forward_el(content(), erlang:timestamp()) -> exml:element().
 build_forward_el(Content, Timestamp) ->
-    Packet = mod_inbox_utils:maybe_set_client_xmlns(true, Content),
+    Packet = mod_inbox_utils:maybe_add_default_ns(Content),
     {ok, Parsed} = exml:parse(Packet),
     Delay = build_delay_el(Timestamp),
     #xmlel{name = <<"forwarded">>, attrs = [{<<"xmlns">>, ?NS_FORWARD}],
