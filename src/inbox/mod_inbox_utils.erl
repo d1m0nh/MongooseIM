@@ -29,7 +29,7 @@
          get_option_remove_on_kicked/1,
          reset_marker_to_bin/1]).
 
--export([maybe_add_default_ns/1]).
+-export([fill_namespace_attr/1]).
 
 -spec reset_unread_count(User :: jid:jid(),
                          Remote :: jid:jid(),
@@ -137,21 +137,13 @@ reset_marker_to_bin(acknowledged) -> <<"acknowledged">>;
 reset_marker_to_bin(received) -> <<"received">>;
 reset_marker_to_bin(Unknown) -> throw({unknown_marker, Unknown}).
 
--spec maybe_add_default_ns(exml:element()) -> exml:element().
-maybe_add_default_ns(El = #xmlel{name = Name, attrs = Attrs}) ->
-  ?DEBUG("INBOX maybe_add_default_ns", [Name]),
-  ?DEBUG("INBOX maybe_add_default_ns attrs", [Attrs]),
-  %when Name =:= <<"message">>  ->
+-spec fill_namespace_attr(Msg :: exml:element()) -> exml:element().
+fill_namespace_attr(Msg = #xmlel{name = Name, attrs = Attrs}) when Name =:= <<"message">>  ->
   case xml:get_attr(<<"xmlns">>, Attrs) of
     false ->
-      El#xmlel{attrs = [{<<"xmlns">>, ?NS_CLIENT} | Attrs]};
+      Msg#xmlel{attrs = [{<<"xmlns">>, ?NS_CLIENT} | Attrs]};
     _ ->
-      El
+      Msg
   end;
-
-maybe_add_default_ns(El) ->
-  ?DEBUG("INBOX maybe_add_default_ns EL", [El]),
-  El.
-
-%maybe_set_client_xmlns(Attr, Value, XE = #xmlel{attrs = Attrs}) ->
-%  %xml:replace_tag_attr(<<"xmlns">>, <<"jabber:client">>, Packet);
+fill_namespace_attr(Msg) ->
+  Msg.
